@@ -1090,18 +1090,35 @@ public class NetPractice
             System.out.println(nums[nums.length / 2]);
         }*/
         
-        //130.
-        int[] nums = {1, 1, 2, 3, 3, 3, 4, 5, 6, 7, 7};
-        int[] num2 = new int[7];
+        //138.
+        /*String [] dict = {"cat", "flag", "green", "country", "w3resource"};
+        System.out.println("Original dictionary : " + Arrays.toString(dict));
+	System.out.println("Longest word(s) of the above dictionary: " + longestWords(dict));
         
-        for(int i=0; i<nums.length-1; i++)
+    }
+}
+        public class Solution
         {
-            if(nums[i] == nums[i-1])
+            static ArrayList<String> longestWords(String[] dictionary)
             {
-                num2[i] = nums[i];
-                System.out.println(num2);
-            }
+                ArrayList<String> list = new ArrayList<String>();
+                int longest_length = 0;
+                for(String str : dictionary)
+                {
+                    int length = str.length();
+                    if(length > longest_length)
+                    {
+                        longest_length = length;
+                        list.clear();
+                    }
+                if(length == longest_length)
+                {
+                    list.add(str);
+                }
+            }  
+            return list;
         }
+    }*/
         
         
         
