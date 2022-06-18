@@ -1120,7 +1120,47 @@ public class NetPractice
         }
     }*/
         
+        //139.
+        /*int[] nums = {1, 2, 3, -6, 5, 4};
         
+        for(int i=0; i<nums.length; i++)
+        {
+            if(nums[0] + nums[1] + nums[2] + nums[3] == 0)
+            {
+                System.out.println("0");
+                break;
+            }
+        }*/
+        
+        //141.
+        /*String word = "xyyz";
+        char[] letters = word.toCharArray();
+        
+        for(int i=1; i<letters.length; i++)
+        {
+            if(letters[i] == letters[i-1])
+                System.out.println(String.valueOf(false));
+            else
+                System.out.println(String.valueOf(true));
+        }*/
+        
+        //142.
+        /*String word = "wxyz";
+        char[] letters = word.toCharArray();
+        
+        String word2 = "zyxw";
+        char[] letters2 = word2.toCharArray();
+        
+        for(int i=0; i<letters.length-1; i++)
+        {
+            for(int j=0; j<letters2.length-1; j++)
+            {
+                if(letters[i] == letters2[3] && letters[1] == letters2[2] && letters[2] == letters2[1] && letters[3] == letters2[j])
+                {
+                    System.out.println("Anagram");
+                }
+            }
+        }*/
         
         
         
