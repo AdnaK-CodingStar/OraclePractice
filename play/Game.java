@@ -3,60 +3,68 @@ package com.mycompany.oraclepractice.soccer.play;
 import com.mycompany.oraclepractice.soccer.event.Goal;
 import static com.mycompany.oraclepractice.soccer.play.Team.createTeams;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  *
  * @author AdnaK
  */
 public class Game extends League implements Comparable, IDisplayDataItem
 {
-    public Team homeTeam;
-    public Team awayTeam;
-    public Goal[] goals;
+    private Team homeTeam;
+    private Team awayTeam;
+    private Goal[] goals;
     
-    String gameName = null;
     
-    public int team1points;
-    public int team2points;
-    
-    public static String[] createGames()
+    //CONSTRUCTORS
+    public Game(Team homeTeam, Team awayTeam)
     {
-        String[] games = createTeams();
-        return games;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
     }
     
-    public void getDescription()
+    
+    //METHODS
+    public String getDescription()
     {
-        Team team = new Team();
+        StringBuilder returnString = new StringBuilder();
         
-        String team1 = team.getTeamOne();
-        String team2 = team.getTeamTwo();
+        for(Goal currentGoal : this.getGoals())
+        {
+            returnString.append("Goal scored after: " + currentGoal.getTheTime() +
+            " mins by " + currentGoal.getThePlayer().getPlayerName() + 
+            " of " + currentGoal.getTheTeam().getTeamName() + ".\n");
+        }    
         
-        if(team1.equals(team2))
-        {
-            System.out.println("Winner is TeamTwo");
-        }
-        else
-        {
-            System.out.println("Winner is TeamOne");
-        }
+        return returnString.toString();
     }
     
-    public void showBestTeam()
+    public void playGame()
+    {
+        playGame(6);
+    }
+    
+    
+    public void playGame(int maxGoals)
+    {       
+        int numberOfGoals = (int)(Math.random() * (maxGoals + 1));
+        Goal[] theGoals = new Goal[numberOfGoals];
+        this.setGoals(theGoals);
+        GameUtils.addGameGoals(this);
+    }
+    
+    /*public void showBestTeam()
     {
         int team1points = 0;
         int team2points = 0;
         
         if(team1points==team2points)
         {
-            this.team1points = team1points;
-            this.team2points = team2points;
+            this.setTeam1points(team1points);
+            this.setTeam2points(team2points);
         }
         else
             System.out.println("Different points.");
-    }
+    }*/
+    
     public LocalDateTime gameTime()
     {
         LocalDateTime currentGame = LocalDateTime.now();
@@ -64,31 +72,6 @@ public class Game extends League implements Comparable, IDisplayDataItem
         return currentGame;
     }
     
-    
-    
-    
-    public void namesArrays()
-    {
-        String names = "Alex, Cat, Maya, Lily";
-        String namesArray[] = names.split(" ");
-        System.out.print("[");
-        
-        ArrayList<String> namess = new ArrayList();
-        
-        for(int i=0; i<namesArray.length; i++)
-        {
-            System.out.print(namesArray[i]);
-            for(int j=i; j<namess.size(); j++)
-            {
-                new ArrayList<String>(Arrays.asList(namesArray[j]));
-            }
-        }
-        
-        System.out.print("]");
-        
-        System.out.println(namess);
-        
-    }
 
     @Override
     public void compare() {
@@ -114,6 +97,55 @@ public class Game extends League implements Comparable, IDisplayDataItem
     public String getDetailType() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
+    //GETTERS & SETTERS
+    /**
+     * @return the homeTeam
+     */
+    public Team getHomeTeam()
+    {
+        return homeTeam;
+    }
+
+    /**
+     * @param homeTeam the homeTeam to set
+     */
+    public void setHomeTeam(Team homeTeam)
+    {
+        this.homeTeam = homeTeam;
+    }
+
+    /**
+     * @return the awayTeam
+     */
+    public Team getAwayTeam()
+    {
+        return awayTeam;
+    }
+
+    /**
+     * @param awayTeam the awayTeam to set
+     */
+    public void setAwayTeam(Team awayTeam)
+    {
+        this.awayTeam = awayTeam;
+    }
+
+    /**
+     * @return the goals
+     */
+    public Goal[] getGoals()
+    {
+        return goals;
+    }
+
+    /**
+     * @param goals the goals to set
+     */
+    public void setGoals(Goal[] goals)
+    {
+        this.goals = goals;
+    }
     
 }
