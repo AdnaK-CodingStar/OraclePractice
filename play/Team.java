@@ -10,50 +10,87 @@ import java.util.Arrays;
  */
 public class Team extends Player implements Comparable, IDisplayDataItem
 {
-    public String teamName;
-    public Player[] playerArray;
+    private String teamName;
+    private Player[] playerArray;
+    private int pointsTotal;
+    private int goalsTotal;
     
-    
-    String[] teams = {};
-    
-        String teamOne; /*= "Player2", "Player3", "Player4", "Player5", "Player6",
-                            "Player7", "Player8", "Player9", "Player10", "Player11";*/
-        
-        String teamTwo; /*= {"PlayerOne", "PlayerTwo", "PlayerThree", "PlayerFour",
-                            "PlayerFive", "PlayerSix", "PlayerSeven", "PlayerEight",
-                            "PlayerNine", "PlayerTen", "PlayerEleven"};
-        */
-        
-    public static String[] createTeams()
-    {
-        String[] teams = new String[2];
-        
-        return teams;
-    }
-    
-    ArrayList<Team> teamsList = new ArrayList(Arrays.asList(teams));
 
-    /*
-    public Team(String firstName, char age, int dateOfBirth, char colour)
+    //CONSTRUCTORS
+    
+    public Team(String teamName)
     {
-        super(firstName, age, dateOfBirth, colour);
-    }*/
-
-    public Team() {
-        this.teamOne = "Player1";
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.teamName = teamName;
     }
     
-    public String getTeamOne()
+    public Team(String teamName, Player[] players)
     {
-        return teamOne;
+        this(teamName);
+        this.playerArray = players;
     }
     
-    public String getTeamTwo()
+    public Team()
     {
-        return teamTwo;
+        
+    }
+    
+    //GETTERS & SETTERS
+    
+    public int getPointsTotal()
+    {
+        return pointsTotal;
     }
 
+    public void setPointsTotal(int pointsTotal)
+    {
+        this.pointsTotal = pointsTotal;
+    }
+    
+    /**
+     * @return the teamName
+     */
+    public String getTeamName()
+    {
+        return teamName;
+    }
+
+    /**
+     * @param teamName the teamName to set
+     */
+    public void setTeamName(String teamName)
+    {
+        this.teamName = teamName;
+    }
+
+    /**
+     * @return the playerArray
+     */
+    public Player[] getPlayerArray()
+    {
+        return playerArray;
+    }
+
+    /**
+     * @param playerArray the playerArray to set
+     */
+    public void setPlayerArray(Player[] playerArray)
+    {
+        this.playerArray = playerArray;
+    }
+    
+
+    //METHODS
+    
+    public void incPointsTotal(int pointsTotal)
+    {
+        this.pointsTotal += pointsTotal;
+    }
+    
+    public void incGoalsTotal(int goals)
+    {
+        this.goalsTotal = this.goalsTotal + goals;
+    }
+    
     @Override
     public void compare() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
