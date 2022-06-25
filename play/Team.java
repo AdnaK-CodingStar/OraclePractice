@@ -1,8 +1,5 @@
 package com.mycompany.oraclepractice.soccer.play;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 
 /**
  *
