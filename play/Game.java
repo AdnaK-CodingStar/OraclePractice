@@ -1,8 +1,10 @@
 package com.mycompany.oraclepractice.soccer.play;
 
 import com.mycompany.oraclepractice.soccer.event.Goal;
-import static com.mycompany.oraclepractice.soccer.play.Team.createTeams;
+import com.mycompany.oraclepractice.soccer.util.GameUtils;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author AdnaK
@@ -12,27 +14,66 @@ public class Game extends League implements Comparable, IDisplayDataItem
     private Team homeTeam;
     private Team awayTeam;
     private Goal[] goals;
+    private LocalDateTime theDateTime;
     
     
     //CONSTRUCTORS
-    public Game(Team homeTeam, Team awayTeam)
+    public Game(Team homeTeam, Team awayTeam, LocalDateTime theDateTime)
     {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.theDateTime = theDateTime;
     }
     
     
     //METHODS
     public String getDescription()
     {
+        int homeTeamGoals = 0;
+        int awayTeamGoals = 0;
+        
         StringBuilder returnString = new StringBuilder();
+        
+        returnString.append(this.getHomeTeam().getTeamName() + " vs " + 
+                this.getAwayTeam().getTeamName() + "\n" + 
+                "Date" + this.theDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + "\n");
         
         for(Goal currentGoal : this.getGoals())
         {
+            if(currentGoal.getTheTeam() == homeTeam)
+            {
+                homeTeamGoals++;
+                homeTeam.incGoalsTotal(1);
+            }
+            else
+            {
+                awayTeamGoals++;
+                awayTeam.incGoalsTotal(1);
+            }
+            
             returnString.append("Goal scored after: " + currentGoal.getTheTime() +
             " mins by " + currentGoal.getThePlayer().getPlayerName() + 
             " of " + currentGoal.getTheTeam().getTeamName() + ".\n");
         }    
+        
+        if(homeTeamGoals == awayTeamGoals)
+        {
+            returnString.append("It's a draw!");
+            homeTeam.incPointsTotal(1);
+            awayTeam.incPointsTotal(1);
+        }
+        else if(homeTeamGoals > awayTeamGoals)
+        {
+            returnString.append(returnString.append(homeTeam.getTeamName() + " win!"));
+            homeTeam.incPointsTotal(2);
+        }
+        else
+        {
+            returnString.append(returnString.append(awayTeam.getTeamName() + " win!"));
+            awayTeam.incPointsTotal(2);
+        }
+        
+        returnString.append(" (" + homeTeamGoals + " - " + awayTeamGoals + ") \n");
         
         return returnString.toString();
     }
@@ -51,19 +92,6 @@ public class Game extends League implements Comparable, IDisplayDataItem
         GameUtils.addGameGoals(this);
     }
     
-    /*public void showBestTeam()
-    {
-        int team1points = 0;
-        int team2points = 0;
-        
-        if(team1points==team2points)
-        {
-            this.setTeam1points(team1points);
-            this.setTeam2points(team2points);
-        }
-        else
-            System.out.println("Different points.");
-    }*/
     
     public LocalDateTime gameTime()
     {
@@ -147,5 +175,17 @@ public class Game extends League implements Comparable, IDisplayDataItem
     {
         this.goals = goals;
     }
+
+    public LocalDateTime getTheDateTime()
+    {
+        return theDateTime;
+    }
+
+    public void setTheDateTime(LocalDateTime theDateTime)
+    {
+        this.theDateTime = theDateTime;
+    }
+    
+    
     
 }
