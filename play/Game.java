@@ -1,9 +1,9 @@
 package com.mycompany.oraclepractice.soccer.play;
 
 import com.mycompany.oraclepractice.soccer.event.Goal;
-import com.mycompany.oraclepractice.soccer.util.GameUtils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -80,16 +80,24 @@ public class Game extends League implements Comparable, IDisplayDataItem
     
     public void playGame()
     {
-        playGame(6);
-    }
-    
-    
-    public void playGame(int maxGoals)
-    {       
-        int numberOfGoals = (int)(Math.random() * (maxGoals + 1));
-        Goal[] theGoals = new Goal[numberOfGoals];
-        this.setGoals(theGoals);
-        GameUtils.addGameGoals(this);
+        ArrayList<Goal> eventList = new ArrayList();
+        Goal currentEvent;
+        for(int i=1; i<=90; i++)
+        {
+            if(Math.random() > 0.95)
+            {
+                //System.out.println(i);
+                currentEvent = new Goal();
+                currentEvent.setTheTeam(Math.random() > 0.5 ? homeTeam : awayTeam);
+                currentEvent.setThePlayer(currentEvent.getTheTeam().
+                             getPlayerArray()[(int) Math.random() *
+                             currentEvent.getTheTeam().getPlayerArray().length]);
+                currentEvent.setTheTime(i);
+                eventList.add(currentEvent);
+            }
+        }
+        this.goals = new Goal[eventList.size()];
+        eventList.toArray(goals);
     }
     
     
