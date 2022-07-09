@@ -1,6 +1,8 @@
 package com.mycompany.oraclepractice.soccer.play;
 
+import com.mycompany.oraclepractice.soccer.event.GameEvent;
 import com.mycompany.oraclepractice.soccer.event.Goal;
+import com.mycompany.oraclepractice.soccer.event.Possession;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,9 +15,8 @@ public class Game extends League implements Comparable, IDisplayDataItem
 {
     private Team homeTeam;
     private Team awayTeam;
-    private Goal[] goals;
+    private GameEvent[] gameEvents;
     private LocalDateTime theDateTime;
-    
     
     //CONSTRUCTORS
     public Game(Team homeTeam, Team awayTeam, LocalDateTime theDateTime)
@@ -38,22 +39,26 @@ public class Game extends League implements Comparable, IDisplayDataItem
                 this.getAwayTeam().getTeamName() + "\n" + 
                 "Date" + this.theDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE) + "\n");
         
-        for(Goal currentGoal : this.getGoals())
+        for(GameEvent currentEvent : this.getEvents())
         {
-            if(currentGoal.getTheTeam() == homeTeam)
+            if(currentEvent instanceof Goal)
             {
-                homeTeamGoals++;
-                homeTeam.incGoalsTotal(1);
-            }
-            else
-            {
-                awayTeamGoals++;
-                awayTeam.incGoalsTotal(1);
+                if(currentEvent.getTheTeam() == homeTeam)
+                {
+                    homeTeamGoals++;
+                    homeTeam.incGoalsTotal(1);
+                }
+                else
+                {
+                    awayTeamGoals++;
+                    awayTeam.incGoalsTotal(1);
+                }
+                currentEvent.getThePlayer().incGoalsScored();
             }
             
-            returnString.append("Goal scored after: " + currentGoal.getTheTime() +
-            " mins by " + currentGoal.getThePlayer().getPlayerName() + 
-            " of " + currentGoal.getTheTeam().getTeamName() + ".\n");
+            returnString.append(currentEvent + " after: " + currentEvent.getTheTime() +
+            " mins by " + currentEvent.getThePlayer().getPlayerName() + 
+            " of " + currentEvent.getTheTeam().getTeamName() + ".\n");
         }    
         
         if(homeTeamGoals == awayTeamGoals)
@@ -80,14 +85,14 @@ public class Game extends League implements Comparable, IDisplayDataItem
     
     public void playGame()
     {
-        ArrayList<Goal> eventList = new ArrayList();
-        Goal currentEvent;
+        ArrayList<GameEvent> eventList = new ArrayList();
+        GameEvent currentEvent;
         for(int i=1; i<=90; i++)
         {
-            if(Math.random() > 0.95)
+            if(Math.random() > 0.8)
             {
                 //System.out.println(i);
-                currentEvent = new Goal();
+                currentEvent = Math.random() > 0.8 ? new Goal() : new Possession();
                 currentEvent.setTheTeam(Math.random() > 0.5 ? homeTeam : awayTeam);
                 currentEvent.setThePlayer(currentEvent.getTheTeam().
                              getPlayerArray()[(int) Math.random() *
@@ -96,8 +101,8 @@ public class Game extends League implements Comparable, IDisplayDataItem
                 eventList.add(currentEvent);
             }
         }
-        this.goals = new Goal[eventList.size()];
-        eventList.toArray(goals);
+        this.gameEvents = new Goal[eventList.size()];
+        eventList.toArray(gameEvents);
     }
     
     
@@ -108,11 +113,6 @@ public class Game extends League implements Comparable, IDisplayDataItem
         return currentGame;
     }
     
-
-    @Override
-    public void compare() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public boolean isDetailAvailable() {
@@ -134,6 +134,10 @@ public class Game extends League implements Comparable, IDisplayDataItem
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public int compareTo(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     //GETTERS & SETTERS
     /**
@@ -169,19 +173,19 @@ public class Game extends League implements Comparable, IDisplayDataItem
     }
 
     /**
-     * @return the goals
+     * @return the gameEvents
      */
-    public Goal[] getGoals()
+    public GameEvent[] getEvents()
     {
-        return goals;
+        return gameEvents;
     }
 
     /**
-     * @param goals the goals to set
+     * @param gameEvents the gameEvents to set
      */
-    public void setGoals(Goal[] goals)
+    public void setEvents(GameEvent[] gameEvents)
     {
-        this.goals = goals;
+        this.gameEvents = gameEvents;
     }
 
     public LocalDateTime getTheDateTime()
@@ -192,8 +196,5 @@ public class Game extends League implements Comparable, IDisplayDataItem
     public void setTheDateTime(LocalDateTime theDateTime)
     {
         this.theDateTime = theDateTime;
-    }
-    
-    
-    
+    }    
 }
