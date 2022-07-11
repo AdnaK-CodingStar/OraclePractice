@@ -1,8 +1,7 @@
 package com.mycompany.oraclepractice.soccer.play;
 
-import com.mycompany.oraclepractice.soccer.event.Goal;
 import com.mycompany.oraclepractice.soccer.util.PlayerDatabase;
-import java.time.LocalDate;
+import com.mycompany.oraclepractice.soccer.util.PlayerDatabaseException;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
@@ -20,6 +19,8 @@ public class League
     {
         League theLeague = new League();
         
+        try
+        {
         Team[] theTeams = theLeague.createTeams("The Robins, The Crows, The Swallows", 3);
         
         Game[] theGames = theLeague.createGames(theTeams);
@@ -35,12 +36,17 @@ public class League
         theLeague.showBestTeam(theTeams);
         
         theLeague.showBestPlayers(theTeams);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace(System.err);
+        }
         
     }
     
     //METHODS
     
-    public Team[] createTeams(String teamNames, int teamSize)
+    public Team[] createTeams(String teamNames, int teamSize) throws PlayerDatabaseException
     {   
         PlayerDatabase playerDB = new PlayerDatabase();
         StringTokenizer teamNameTokens = new StringTokenizer(teamNames, ",");
