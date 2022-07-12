@@ -4,9 +4,9 @@ package com.mycompany.oraclepractice.soccer.play;
  *
  * @author AdnaK
  */
-public class Player implements Comparable
+public class Player
 {
-    public String playerName;
+    private String playerName;
     private char age;
     private int dateOfBirth;
     private double effiency;
@@ -16,23 +16,19 @@ public class Player implements Comparable
     
     private char colour;
     
+    private int goalsScored;
+    
     
     //CONSTRUCTORS
-    /*public Player(String firstName, char age, int dateOfBirth, char colour)
+    public Player(String playerName)
     {
-        this.firstName = firstName;
-        setAge(age);
-        setDateOfBirth(dateOfBirth);
-        this.colour = colour;
+        this.playerName = playerName;
     }
     
-    public Player(double effiency, long activeDays, int activeDayss)
+    public Player()
     {
-        this.effiency = effiency;
-        setActiveDays(activeDays);
-        setActiveDayss(activeDayss);
+        
     }
-    */
     
     
     //GETTERS & SETTERS
@@ -104,11 +100,24 @@ public class Player implements Comparable
     public void setColour(char colour)
     {
         this.colour = colour;
-    }    
+    }
 
-    @Override
-    public void compare() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getGoalsScored()
+    {
+        return goalsScored;
+    }
+
+    public void setGoalsScored(int goalsScored)
+    {
+        this.goalsScored = goalsScored;
+    }
+    
+    
+    //METHODS
+    
+    public void incGoalsScored()
+    {
+        this.goalsScored++;
     }
 
 }
