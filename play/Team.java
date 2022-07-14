@@ -43,6 +43,16 @@ public class Team extends Player implements Comparable, IDisplayDataItem
         this.pointsTotal = pointsTotal;
     }
     
+    public int getGoalsTotal()
+    {
+        return goalsTotal;
+    }
+
+    public void setGoalsTotal(int goalsTotal)
+    {
+        this.goalsTotal = goalsTotal;
+    }
+    
     /**
      * @return the teamName
      */
@@ -87,11 +97,6 @@ public class Team extends Player implements Comparable, IDisplayDataItem
     {
         this.goalsTotal = this.goalsTotal + goals;
     }
-    
-    @Override
-    public void compare() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public boolean isDetailAvailable() {
@@ -111,6 +116,24 @@ public class Team extends Player implements Comparable, IDisplayDataItem
     @Override
     public String getDetailType() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compareTo(Object theTeam)
+    {
+        int returnValue = -1;
+        if(this.getPointsTotal() < ((Team)theTeam).getPointsTotal())
+        {
+            returnValue = 1;
+        }
+        else if(this.getPointsTotal() == ((Team)theTeam).getPointsTotal())
+        {
+            if(this.getGoalsTotal() < ((Team)theTeam).getGoalsTotal())
+            {
+                returnValue = 1;
+            }
+        }
+        return returnValue;
     }
     
 }
