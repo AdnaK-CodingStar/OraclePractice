@@ -6,6 +6,7 @@ package com.mycompany.oraclepractice.soccer.util;
  */
 public class PlayerDatabaseException extends Exception
 {
+    //
     public PlayerDatabaseException()
     {
         
