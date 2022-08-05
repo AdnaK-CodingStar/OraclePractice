@@ -6,17 +6,17 @@ package com.mycompany.oraclepractice.OracleExam;
  */
 public class Solution
 {
-public static void main(String[] args)
-{
-    int n = 150;
-    
-    for(int i=1; i<n; i++)
+    public static void main(String[] args)
     {
-        if(i % 1 == 0 && i % i == 0)
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        
+        for(int i=147; i<n; i++)
         {
-            System.out.println(i);
+            if(i % 2 != 0)
+            {
+                System.out.print(i-10 + " ");
+            }
         }
-    }
-}
-    
+    }   
 }
