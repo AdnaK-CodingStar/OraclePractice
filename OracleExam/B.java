@@ -11,10 +11,11 @@ public class B
         
     }
     
+    /*
     public String doit()
     {
         return "a";
-    }
+    }*/
     
     public double doit(int x)
     {
