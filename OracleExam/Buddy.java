@@ -17,5 +17,4 @@ public class Buddy
             System.out.print(s + ".");
         }
     }
-    
 }
